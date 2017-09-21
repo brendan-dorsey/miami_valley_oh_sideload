@@ -1,19 +1,9 @@
-from pymongo import MongoClient
 import requests
-from os import environ
 from bs4 import BeautifulSoup
-import time
 import re
 
 
 def main():
-    # Initiate mongo client
-    client = MongoClient()
-    # Initiate Database
-    db = client["test_database"]
-    # Initiate Table
-    coll = db["test_coll"]
-
     # URL to scrape
     url = "http://www.montgomery.miamivalleydispatch.org/"
 
