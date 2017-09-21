@@ -21,7 +21,7 @@ def main():
     soup = BeautifulSoup(page, "html.parser")
 
     # Collect all data rows from display table
-    data_rows = soup.findAll("tr", { "class" : "dxgvDataRow" })
+    data_rows = soup.findAll("tr", {"class": "dxgvDataRow"})
 
     # Loop through data rows to build output array
     incidents_array = []
