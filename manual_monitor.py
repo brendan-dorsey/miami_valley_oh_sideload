@@ -3,6 +3,7 @@ import requests
 from os import environ
 from bs4 import BeautifulSoup
 import time
+import re
 
 
 def main():
@@ -41,13 +42,18 @@ def main():
 
         # Logic for interpreting location coding
         location = row_data[6].string[:-4] + ", OH"
-        location = location.replace("/", " and ")
-        location = location.replace("PK", "PIKE")
-        location = location.replace("BL", "BLVD")
+        location = re.sub("/", " and ", location)
+        location = re.sub(r"\bPK\b", r"PIKE", location)
+        location = re.sub(r"\bBL\b", r"BLVD", location)
+        location = re.sub(r"\bAV\b", r"AVE", location)
+        location = re.sub("([0-9]+)[NSEW]B", r"-\1", location)
         incident["location"] = location
 
         # Add incident to output array
         incidents_array.append(incident)
+
+    for item in incidents_array:
+        print item["location"]
 
     return incidents_array
 
