@@ -26,16 +26,45 @@ def main():
     # print len(data_rows)
     # print type(data_rows)
 
+    # for i, row in enumerate(data_rows):
+    #     print i + 1
+    #     print type(row)
+    #     print row.contents
+    #     print "length: ", len(row.contents)
+    #     print ""
+    #     for i, tag in enumerate(row.contents):
+    #         print i
+    #         print tag.string
+    #         print ""
+    #     break
+
+    incidents_array = []
     for i, row in enumerate(data_rows):
-        print i + 1
-        # print type(row)
-        print row.contents
-        print ""
-        for i, tag in enumerate(row.contents):
-            print i
-            print tag
-            print ""
-        break
+        incident = {}
+        row_data = row.contents
+        if len(row_data) < 9:
+            continue
+
+        incident["timestamp"] = row_data[2].string
+        incident["id"] = "montgomery_county_oh_pd_" + row_data[3].string
+        incident["headline"] = row_data[4].string
+        location = row_data[6].string[:-4] + ", OH"
+        location = location.replace("/", " and ")
+        location = location.replace("PK", "PIKE")
+        location = location.replace("BL", "BLVD")
+        incident["location"] = location
+
+        incidents_array.append(incident)
+
+    # print incidents_array
+
+    for item in incidents_array:
+        print item["location"]
+
+    print incidents_array
+
+
+
 
 
 
